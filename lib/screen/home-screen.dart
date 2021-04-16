@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.indigoAccent.withOpacity(0.9),
       body: SafeArea(
         child: SingleChildScrollView(
-                  child: Column(
+          child: Column(
             children: [
               upperContainer(context),
               lowerContainer(context),
@@ -64,8 +64,7 @@ class HomeScreen extends StatelessWidget {
           SizedBox(
             height: 5,
           ),
-           for(var i = 0; i <= 2; i++) _gameInstallCard(context),
-          
+          for (var i = 0; i <= 2; i++) _gameInstallCard(context),
         ],
       ),
     );
@@ -121,7 +120,7 @@ class HomeScreen extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: Image.asset(
-"assets/iconOri.jpg",
+          "assets/ori.png",
           color: Theme.of(context).scaffoldBackgroundColor,
           fit: BoxFit.cover,
         ),
@@ -149,7 +148,9 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Adventure"),
-                    SizedBox(height: 4,),
+                    SizedBox(
+                      height: 4,
+                    ),
                     _rating(context),
                   ],
                 ),
@@ -213,10 +214,15 @@ class HomeScreen extends StatelessWidget {
             children: [
               // for (String image in _homeStateController.popularGame)
               for (var i = 0; i < 10; i++)
-                _popularGameImage(
-                  image:
-                      "https://msgpwebcdn.azureedge.net/ori/wp-content/uploads/2020/11/X04_XSX-1.png",
-                  context: context,
+                GestureDetector(
+                  onTap: () {
+                    _homeStateController.onClickPopular(context);
+                  },
+                  child: _popularGameImage(
+                    image:
+                        "https://msgpwebcdn.azureedge.net/ori/wp-content/uploads/2020/11/X04_XSX-1.png",
+                    context: context,
+                  ),
                 ),
             ],
           ),
