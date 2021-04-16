@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:merogames/screen/all-home.dart';
 
 import 'package:merogames/screen/home-screen.dart';
 import 'package:merogames/screen/register-screen.dart';
@@ -27,13 +28,13 @@ class LoginController extends ChangeNotifier {
     showProgressBar = true;
     notifyListeners();
     await Future.delayed(
-      Duration(seconds: 5),
+      Duration(seconds: 2),
     );
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => HomeScreen(),
+        builder: (context) => AllHome(),
       ),
     );
     showProgressBar = false;
