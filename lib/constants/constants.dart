@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+Border kBorderTextFieldkCardkSearchbar = Border.all(
+      width: 0.25,
+      color: Colors.grey,
+    );
+
 final InputDecoration kTfBorder = InputDecoration(
   labelText: "Enter your value",
  

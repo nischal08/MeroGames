@@ -17,51 +17,55 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 30),
-            width: double.infinity,
-            child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 30,
+        child: _loginStateController.showProgressBar
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 30),
+                  width: double.infinity,
+                  child: Column(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 30,
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            _loginStateController.onClickBackBtn(context);
+                          },
+                          child: _backBtn(context)),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      _titleDesc(context),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      CustomTextfield(
+                        controller: _emailController,
+                        label: 'Enter Email',
+                        icon: Icons.email_outlined,
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CustomTextfield(
+                        obscureText: true,
+                        controller: _passwordController,
+                        label: 'Enter Password',
+                        icon: Icons.lock_outline,
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      _generalBtn(context)
+                    ],
+                  ),
                 ),
-                GestureDetector(
-                    onTap: () {
-                      _loginStateController.onClickBackBtn(context);
-                    },
-                    child: _backBtn(context)),
-                SizedBox(
-                  height: 30,
-                ),
-                _titleDesc(context),
-                SizedBox(
-                  height: 50,
-                ),
-                CustomTextfield(
-                  controller: _emailController,
-                  label: 'Enter Email',
-                  icon: Icons.email_outlined,
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomTextfield(
-                  obscureText: true,
-                  controller: _passwordController,
-                  label: 'Enter Password',
-                  icon: Icons.lock_outline,
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                _generalBtn(context)
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }
@@ -75,7 +79,8 @@ class LoginScreen extends StatelessWidget {
           onPressed: () {
             print(_emailController.text);
             _loginStateController.onClickSaveBtn(
-                email: _emailController.text,
+                context: context,
+                identity: _emailController.text,
                 password: _passwordController.text);
           },
         ),

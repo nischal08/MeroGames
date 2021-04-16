@@ -74,7 +74,9 @@ class RegisterScreen extends StatelessWidget {
         GeneralElevatedButton(
           bgColor: Colors.white,
           label: 'Create Account',
-          onPressed: () {},
+          onPressed: () {
+            _registerStateController.onClickCreateAcc(context);
+          },
         ),
         SizedBox(
           height: 20,

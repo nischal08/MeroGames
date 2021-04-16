@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:merogames/controller/home-controller.dart';
 import 'package:merogames/controller/register-controller.dart';
 import 'package:merogames/controller/welcome-controller.dart';
 import 'package:merogames/screen/welcome-screen.dart';
@@ -18,6 +19,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => WelcomeController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => HomeController(),
         ),
       ],
       child: MyApp(),

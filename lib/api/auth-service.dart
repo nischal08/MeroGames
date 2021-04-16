@@ -10,7 +10,7 @@ class AuthService {
   }) async {
     try {
       var response = await http.post(
-        '$baseUrl/account/register' as Uri,
+        Uri.http(baseUrl, '/account/register'),
         body: {
           "role": 0,
           "firstName": fname,

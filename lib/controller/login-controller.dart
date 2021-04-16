@@ -1,11 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:merogames/api/auth-service.dart';
+
+import 'package:merogames/screen/home-screen.dart';
 import 'package:merogames/screen/register-screen.dart';
 
 class LoginController extends ChangeNotifier {
+  bool showProgressBar = false;
   String identity;
   String password;
   var authInfo;
@@ -14,25 +14,30 @@ class LoginController extends ChangeNotifier {
     // notifyListeners();
   }
 
-  void onClickSaveBtn({String identity, String password}) async {
-    authInfo = AuthService();
-    this.identity = identity;
-    this.password = password;
+  void onClickSaveBtn({String identity, String password, context}) async {
+    // authInfo = AuthService();
+    // this.identity = identity;
+    // this.password = password;
+    // notifyListeners();
+    // final res = await authInfo.login(identity: identity, password: password);
+    // final data = jsonDecode(res);
+    // if (data['statusCode'] == 200) {
+    //   print('Succesful registered');
+    // }
+    showProgressBar = true;
     notifyListeners();
-    final res = await authInfo.login(identity: identity, password: password);
-    final data = jsonDecode(res);
-    if (data['statusCode'] == 200) {
-      print('Succesful registered');
-    }
-  }
+    await Future.delayed(
+      Duration(seconds: 5),
+    );
 
-  void onClickLogin(context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RegisterScreen(),
+        builder: (context) => HomeScreen(),
       ),
     );
+    showProgressBar = false;
+    notifyListeners();
   }
 
   void onClickCreateAcc(context) {
