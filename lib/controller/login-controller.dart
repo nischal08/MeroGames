@@ -1,44 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:merogames/screen/all-home.dart';
-
-import 'package:merogames/screen/home-screen.dart';
+import 'package:merogames/api/auth-service.dart';
+import 'package:merogames/models/LoginResponse.dart';
 import 'package:merogames/screen/register-screen.dart';
 
 class LoginController extends ChangeNotifier {
+  LoginResponse _loginResponse;
   bool showProgressBar = false;
-  String identity;
-  String password;
+
+  String response;
   var authInfo;
   void onClickBackBtn(BuildContext context) {
     Navigator.pop(context);
     // notifyListeners();
   }
 
-  void onClickSaveBtn({String identity, String password, context}) async {
-    // authInfo = AuthService();
-    // this.identity = identity;
-    // this.password = password;
-    // notifyListeners();
-    // final res = await authInfo.login(identity: identity, password: password);
-    // final data = jsonDecode(res);
-    // if (data['statusCode'] == 200) {
-    //   print('Succesful registered');
-    // }
-    showProgressBar = true;
+  Future onClickSaveBtn({String identity, String password, context}) async {
+    final LoginResponse login =
+        await AuthService.loginUser(identity: identity, password: password);
+    _loginResponse = login;
+    print(_loginResponse.sessionToken);
     notifyListeners();
-    await Future.delayed(
-      Duration(seconds: 2),
-    );
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AllHome(),
-      ),
-    );
-    showProgressBar = false;
-    notifyListeners();
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => AllHome(),
+    //   ),
+    // );
   }
 
   void onClickCreateAcc(context) {

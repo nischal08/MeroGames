@@ -1,8 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:merogames/controller/login-controller.dart';
+import 'package:merogames/test/api_end_point.dart';
 import 'package:merogames/widgets/custom-textfield.dart';
 import 'package:merogames/widgets/general-elevated-button.dart';
 import 'package:provider/provider.dart';
+
+Future<String> loginUserFormScreen({String identity, String password}) async {
+  ApiEndPoint().userLogin().then((value) {
+    debugPrint("this is response value ${value.sessionToken}");
+  });
+  return "";
+
+  // print(identity + password);
+  //
+  //
+  // var user = {
+  //   "identity": identity,
+  //   "password": password,
+  //   "returnUrl": "string",
+  // };
+  // var client = http.Client();
+
+  // print(user);
+  // // LoginRequest request = LoginRequest(identity: identity,password: password,);
+  // http.Response response = await client.post(
+  //     Uri.parse('https://games.demo-4u.net/Account/Login'),
+  //     body: user,
+  //     );
+
+  // print(response.body);
+  // print(response.request);
+  // return "";
+  // Map<String, dynamic> decodedResponse = json.decode(response.body);
+  // print(decodedResponse["sessionToken"].toString());
+  // print(decodedResponse["sessionToken"].toString());
+
+  // print("Success");
+  // final String responseString = response.body;
+  // return loginResponseFromJson(responseString);
+}
 
 class LoginScreen extends StatelessWidget {
   TextEditingController _emailController;
@@ -43,7 +80,7 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: 50,
                       ),
-                      CustomTextfield(
+                      CustomTextField(
                         controller: _emailController,
                         label: 'Enter Email',
                         icon: Icons.email_outlined,
@@ -52,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      CustomTextfield(
+                      CustomTextField(
                         obscureText: true,
                         controller: _passwordController,
                         label: 'Enter Password',
@@ -76,12 +113,23 @@ class LoginScreen extends StatelessWidget {
       children: [
         GeneralElevatedButton(
           label: 'Get Login',
-          onPressed: () {
-            print(_emailController.text);
-            _loginStateController.onClickSaveBtn(
-                context: context,
+          onPressed: () async {
+            await loginUserFormScreen(
                 identity: _emailController.text,
                 password: _passwordController.text);
+
+            // LoginResponse user = await loginUser(
+            //     identity: _emailController.text,
+            //     password: _passwordController.text);
+            // print(user.sessionToken);
+            // print(_emailController.text);
+            // print(_passwordController.text);
+
+            //  await  _loginStateController.onClickSaveBtn(
+            //     context: context,
+            //     identity: _emailController.text,
+            //     password: _passwordController.text,
+            //   );
           },
         ),
         SizedBox(

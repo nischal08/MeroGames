@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:merogames/constants/constants.dart';
 
-class CustomTextfield extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final String label;
   final bool obscureText;
   final IconData icon;
   final TextEditingController controller;
   final TextInputType keyboardType;
-  CustomTextfield({
+  CustomTextField({
     this.label,
     this.obscureText,
     this.icon,
@@ -31,7 +31,7 @@ class CustomTextfield extends StatelessWidget {
         keyboardType: keyboardType,
         controller: controller,
         obscureText: obscureText ?? false,
-        textAlign: TextAlign.center,
+        
         decoration: kTfBorder.copyWith(labelText: label, icon: Icon(icon)),
       ),
     );

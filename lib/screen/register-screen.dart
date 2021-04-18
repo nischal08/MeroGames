@@ -31,11 +31,11 @@ class RegisterScreen extends StatelessWidget {
                 ),
                 _titleDesc(context),
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 _allTextField(context),
                 SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
                 _generalBtn(context)
               ],
@@ -49,20 +49,34 @@ class RegisterScreen extends StatelessWidget {
   Widget _allTextField(BuildContext context) {
     return Column(
       children: [
-        CustomTextfield(
+        CustomTextField(
           keyboardType: TextInputType.emailAddress,
-          label: 'Enter Email',
-          icon: Icons.email_outlined,
+          label: 'Enter First Name',
+          icon: Icons.badge,
         ),
         SizedBox(
           height: 20,
         ),
-        CustomTextfield(label: 'Enter Password', icon: Icons.lock_outline),
+        CustomTextField(label: 'Enter Last Name', icon: Icons.badge),
         SizedBox(
           height: 20,
         ),
-        CustomTextfield(
-            label: 'ReEnter Password Again', icon: Icons.lock_outline)
+        CustomTextField(
+            keyboardType: TextInputType.emailAddress,
+            label: 'Enter Phone Number',
+            icon: Icons.phone),
+        SizedBox(
+          height: 20,
+        ),
+        CustomTextField(label: 'Enter Password', icon: Icons.lock_outline),
+        SizedBox(
+          height: 20,
+        ),
+        CustomTextField(
+            label: 'ReEnter Password Again', icon: Icons.lock_outline),
+        SizedBox(
+          height: 20,
+        ),
       ],
     );
   }
