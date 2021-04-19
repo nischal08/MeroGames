@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:merogames/api/auth-service.dart';
+import 'package:merogames/api/api_end_point.dart';
 import 'package:merogames/models/LoginResponse.dart';
 import 'package:merogames/screen/home-screen.dart';
 import 'package:merogames/screen/register-screen.dart';
@@ -17,6 +17,14 @@ class LoginController extends ChangeNotifier {
 
   String response;
   var authInfo;
+
+  Future<String> loginUserFormScreen({String identity, String password}) async {
+    LoginResponse response =
+        await ApiEndPoint().userLogin(identity: identity, password: password);
+
+    return response.sessionToken;
+  }
+
   void onClickBackBtn(BuildContext context) {
     Navigator.pop(context);
     // notifyListeners();
@@ -28,11 +36,15 @@ class LoginController extends ChangeNotifier {
   }
 
   Future onClickSaveBtn({
-    String sessionToken,
-    // String identity,
-    // String password,
+    String identity,
+    String password,
     context,
   }) async {
+    setCircularSpinner();
+    var sessionToken =
+        await loginUserFormScreen(identity: identity, password: password);
+
+    setCircularSpinner();
     _sessionToken = sessionToken;
     // print("THis is my own ${_sessionToken}");
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -45,19 +57,6 @@ class LoginController extends ChangeNotifier {
     );
     var sharedPrefSessionToken = prefs.getString(sessionToken);
     print("SharedPerferences token value :${sharedPrefSessionToken}");
-
-    // final LoginResponse login =
-    //     await AuthService.loginUser(identity: identity, password: password);
-    // _loginResponse = login;
-    // print(_loginResponse.sessionToken);
-    // notifyListeners();
-
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => AllHome(),
-    //   ),
-    // );
   }
 
   void onClickCreateAcc(context) {

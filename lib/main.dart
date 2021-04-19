@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:merogames/controller/home-controller.dart';
+import 'package:merogames/controller/otp-controller.dart';
 import 'package:merogames/controller/register-controller.dart';
 import 'package:merogames/controller/welcome-controller.dart';
+import 'package:merogames/screen/otp-screen.dart';
 import 'package:merogames/screen/welcome-screen.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +27,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => HomeController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OtpController(),
         ),
       ],
       child: MyApp(),

@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:async';
 
 class ApiProvider {
+  // final String _baseUrl = "https://192.168.2.50:45456/";
   final String _baseUrl = "https://games.demo-4u.net/";
 
   Future<dynamic> get(String url) async {
@@ -12,11 +13,11 @@ class ApiProvider {
     try {
       final response = await http.get(Uri.parse(_baseUrl + url));
       responseJson = _response(response);
-    } on SocketException {}
+    } catch (e) {
+      print(e);
+    }
     return responseJson;
   }
-
-  
 
   Future<dynamic> post(String url, String map) async {
     debugPrint("Request body: $map");
@@ -33,18 +34,14 @@ class ApiProvider {
     return responseJson;
   }
 
- 
-
   dynamic _response(http.Response response) {
     debugPrint("Response: ${response.statusCode}");
 
-    switch (response.statusCode) {
-      case 200:
-        var responseJson = json.decode(response.body.toString());
-        debugPrint("Method,Url: ${response.request}");
-        debugPrint("Response: $responseJson");
-        return responseJson;
-      default:
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body.toString());
+      debugPrint("Method,Url: ${response.request}");
+      debugPrint("Response: $responseJson");
+      return responseJson;
     }
   }
 }

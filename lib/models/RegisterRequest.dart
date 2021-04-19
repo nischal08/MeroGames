@@ -1,20 +1,23 @@
 // To parse this JSON data, do
 //
-//     final register = registerFromMap(jsonString);
+//     final registerRequest = registerRequestFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
-class Register {
-    Register({
-        @required this.role,
-        @required this.firstName,
-        @required this.lastName,
-        @required this.phoneNumber,
-        @required this.termsOfService,
-        @required this.password,
-        @required this.confirmPassword,
-        @required this.referrer,
+RegisterRequest registerRequestFromJson(String str) => RegisterRequest.fromJson(json.decode(str));
+
+String registerRequestToJson(RegisterRequest data) => json.encode(data.toJson());
+
+class RegisterRequest {
+    RegisterRequest({
+        this.role,
+        this.firstName,
+        this.lastName,
+        this.phoneNumber,
+        this.termsOfService,
+        this.password,
+        this.confirmPassword,
+        this.referrer,
     });
 
     final int role;
@@ -26,11 +29,7 @@ class Register {
     final String confirmPassword;
     final String referrer;
 
-    factory Register.fromJson(String str) => Register.fromMap(json.decode(str));
-
-    String toJson() => json.encode(toMap());
-
-    factory Register.fromMap(Map<String, dynamic> json) => Register(
+    factory RegisterRequest.fromJson(Map<String, dynamic> json) => RegisterRequest(
         role: json["role"],
         firstName: json["firstName"],
         lastName: json["lastName"],
@@ -41,7 +40,7 @@ class Register {
         referrer: json["referrer"],
     );
 
-    Map<String, dynamic> toMap() => {
+    Map<String, dynamic> toJson() => {
         "role": role,
         "firstName": firstName,
         "lastName": lastName,
