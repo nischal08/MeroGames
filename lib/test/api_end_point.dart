@@ -5,7 +5,7 @@ import 'package:merogames/test/api_provider.dart';
 
 class ApiEndPoint {
   ApiProvider _provider = ApiProvider();
-  Future<LoginResponse> userLogin() async {
+  Future<LoginResponse> userLogin({String identity, String password}) async {
     Map<String, String> json = {
       "identity": "saj3sh",
       "password": "podamibe",

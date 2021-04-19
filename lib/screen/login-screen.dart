@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:merogames/controller/login-controller.dart';
+import 'package:merogames/models/LoginResponse.dart';
 import 'package:merogames/test/api_end_point.dart';
 import 'package:merogames/widgets/custom-textfield.dart';
 import 'package:merogames/widgets/general-elevated-button.dart';
 import 'package:provider/provider.dart';
 
 Future<String> loginUserFormScreen({String identity, String password}) async {
-  ApiEndPoint().userLogin().then((value) {
-    debugPrint("this is response value ${value.sessionToken}");
-  });
-  return "";
+ LoginResponse response=await ApiEndPoint().userLogin(identity: identity, password: password);
+  // .then((value) {
+  //   debugPrint("this is response value ${value.sessionToken}");
+  // });
+  return response.sessionToken;
 
   // print(identity + password);
   //
@@ -114,10 +116,15 @@ class LoginScreen extends StatelessWidget {
         GeneralElevatedButton(
           label: 'Get Login',
           onPressed: () async {
-            await loginUserFormScreen(
+          var sessionToken= await  loginUserFormScreen(
                 identity: _emailController.text,
                 password: _passwordController.text);
 
+
+
+  _loginStateController.onClickSaveBtn(
+                sessionToken: sessionToken,
+              );
             // LoginResponse user = await loginUser(
             //     identity: _emailController.text,
             //     password: _passwordController.text);
